@@ -1,0 +1,14 @@
+<mat-drawer-container class="w-full h-full " autosize>
+    <mat-drawer #drawer class="p-5  " mode="side" [opened]="isSideNavBarOpen">
+
+        <button routerLink="/home"> Home</button>
+        <app-content-navbar></app-content-navbar>
+    </mat-drawer>
+
+    <div class="h-full w-full flex flex-col ">
+        <app-toolbar class="w-full" (isToggleEvent)="onToolBarToggle($event)"></app-toolbar>
+
+        <router-outlet></router-outlet>
+    </div>
+
+</mat-drawer-container>
