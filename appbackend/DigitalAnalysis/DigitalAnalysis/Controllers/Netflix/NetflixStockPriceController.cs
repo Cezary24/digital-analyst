@@ -3,6 +3,8 @@ using DigitalAnalysis.Models.Netflix;
 using DigitalAnalysis.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using DigitalAnalysis.Models.Netflix.DTO;
+using System.Drawing.Printing;
 
 namespace DigitalAnalysis.Controllers.Netflix
 {
@@ -32,6 +34,17 @@ namespace DigitalAnalysis.Controllers.Netflix
             var pageResult = new PageResult<NetflixStockPrice>(netflixStockPrices, totalCount, pageSize, page);
 
             return Ok(pageResult);
+        }
+
+
+        [HttpGet("/get-netflix-stock-prices/for-year/{year}")]
+        public async Task<IActionResult> GetNetflixStockPricesForYear([FromRoute(Name = "year")] int year)
+        {
+            List<NetflixStockPrice> netflixStockPrices = await _dbContext.NetflixStockPrices
+                .Where(stockPrice => stockPrice.Date.Year == year)
+                .ToListAsync();
+
+            return Ok(netflixStockPrices);
         }
     }
 }

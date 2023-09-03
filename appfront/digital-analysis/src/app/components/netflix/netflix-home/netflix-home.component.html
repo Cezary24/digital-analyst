@@ -1,1 +1,5 @@
-<p>netflix-home works!</p>
+<ng-container *ngIf="isReady">
+    <app-chart [legendOptions]="globalRevenueLegend" [xName]="'Daty'" [yName]="'Globalny przychód'"
+        [xAxis]="globalRevenueXAxis" [yAxis]="globalRevenueYAxis" [series]="globalRevenueSeries"
+        [tooltip]="globalRevenueTooltip" [date]="globalRevenues"></app-chart>
+</ng-container>

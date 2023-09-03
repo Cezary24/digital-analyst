@@ -1,10 +1,16 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import { EChartsOption } from 'echarts';
+import {
+  EChartsOption,
+  LegendComponentOption,
+  SeriesOption,
+  init,
+} from 'echarts';
 
 @Component({
   selector: 'app-chart',
@@ -13,54 +19,37 @@ import { EChartsOption } from 'echarts';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent implements OnInit {
-  @Input() xAxisData!: number[];
-  @Input() yAxisData!: number[];
-  @Input() data!: [number[]];
+  @Input() xAxis!: any;
+  @Input() yAxis!: any;
+  @Input() chartType?: any;
+  @Input() xName!: string;
+  @Input() yName!: string;
+  @Input() date?: any[];
+  @Input() series!: SeriesOption;
+  @Input() dataSet?: any;
+  @Input() tooltip?: any;
+  @Input() legendOptions?:
+    | LegendComponentOption
+    | LegendComponentOption[]
+    | undefined;
 
-  options: EChartsOption;
-  constructor() {
-    const xAxisData = [];
-    const data1 = [];
-    const data2 = [];
+  options!: EChartsOption;
 
-    for (let i = 0; i < 100; i++) {
-      xAxisData.push('category' + i);
-      data1.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5);
-      data2.push((Math.cos(i / 5) * (i / 5 - 10) + i / 6) * 5);
-    }
+  constructor(private readonly _changeDetectorRef: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    console.log('tworzenie');
 
     this.options = {
-      legend: {
-        data: ['bar', 'bar2'],
-        align: 'left',
-      },
-      tooltip: {},
-      xAxis: {
-        data: xAxisData,
-        silent: false,
-        splitLine: {
-          show: false,
-        },
-      },
-      yAxis: {},
-      series: [
-        {
-          name: 'bar',
-          type: 'bar',
-          data: data1,
-          animationDelay: (idx) => idx * 10,
-        },
-        {
-          name: 'bar2',
-          type: 'bar',
-          data: data2,
-          animationDelay: (idx) => idx * 10 + 100,
-        },
-      ],
+      legend: this.legendOptions,
+      tooltip: this.tooltip,
+      dataset: this.dataSet,
+      xAxis: this.xAxis,
+      yAxis: this.yAxis,
+      series: this.series,
       animationEasing: 'elasticOut',
       animationDelayUpdate: (idx) => idx * 5,
     };
+    this._changeDetectorRef.markForCheck();
   }
-
-  ngOnInit(): void {}
 }

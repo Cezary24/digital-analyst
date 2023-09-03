@@ -8,9 +8,9 @@ namespace DigitalAnalysis.Models.Netflix
     {
 
         [Key]
-        [Column("show_id")]
+        [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Column("Date")]
         public DateTime Date { get; set; }

@@ -3,6 +3,8 @@ using DigitalAnalysis.Models.Netflix;
 using DigitalAnalysis.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using DigitalAnalysis.Models.Netflix.DTO;
+using System.Collections.Generic;
 
 namespace DigitalAnalysis.Controllers.Netflix
 {
@@ -32,6 +34,22 @@ namespace DigitalAnalysis.Controllers.Netflix
             var pageResult = new PageResult<NetflixRevenue>(netflixRevenues, totalCount, pageSize, page);
 
             return Ok(pageResult);
+        }
+
+
+        [HttpGet]
+        [Route("/get-all-global-revenue-and-dates")]
+        public IActionResult GetNetflixAllGlobalRevenueAndDates()
+        {
+            List<NetflixRevenue> netflixNetflixRevenues = _dbContext.NetflixRevenues.ToList();
+
+            List<GlobalRevenueAndDate> netflixGlobalRevenuesAndDates = netflixNetflixRevenues.Select(revenue => new GlobalRevenueAndDate
+            {
+                Date = revenue.Date,
+                GlobalRevenue = revenue.GlobalRevenue
+            }).ToList();
+
+            return Ok(netflixGlobalRevenuesAndDates);
         }
     }
 }

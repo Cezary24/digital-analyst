@@ -33,5 +33,16 @@ namespace DigitalAnalysis.Controllers.Netflix
 
             return Ok(pageResult);
         }
+
+        [HttpGet]
+        [Route("/get-netflix-revenue-quarter/all")]
+        public Task<IActionResult> GetAllNetflixRevenueQuarter()
+        {
+
+            List<NetflixRevenueQuarter> netflixRevenueQuarters = _dbContext.NetflixRevenueQuarters.ToList();
+
+            return Task.FromResult<IActionResult>(Ok(netflixRevenueQuarters));
+        }
+
     }
 }

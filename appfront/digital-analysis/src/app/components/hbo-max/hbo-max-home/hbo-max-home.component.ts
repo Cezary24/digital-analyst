@@ -5,7 +5,7 @@ import { CONTENT_LIST_HBO_MAX } from './content-list/content-list-hbo-max';
 @Component({
   selector: 'app-hbo-max-home',
   templateUrl: './hbo-max-home.component.html',
-  styleUrls: ['./hbo-max-home.component.css'],
+  styleUrls: ['./hbo-max-home.component.scss'],
 })
 export class HboMaxHomeComponent implements OnInit {
   constructor(private readonly _contentListService: ContentListService) {
