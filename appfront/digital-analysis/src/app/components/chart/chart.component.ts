@@ -25,21 +25,22 @@ export class ChartComponent implements OnInit {
   @Input() xName!: string;
   @Input() yName!: string;
   @Input() date?: any[];
-  @Input() series!: SeriesOption;
+  @Input() series!: any;
   @Input() dataSet?: any;
   @Input() tooltip?: any;
+  @Input() isChartLoading: boolean = false;
   @Input() legendOptions?:
     | LegendComponentOption
     | LegendComponentOption[]
     | undefined;
+
+  @Input() title?: string;
 
   options!: EChartsOption;
 
   constructor(private readonly _changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    console.log('tworzenie');
-
     this.options = {
       legend: this.legendOptions,
       tooltip: this.tooltip,

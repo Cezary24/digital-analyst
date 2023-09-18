@@ -1,32 +1,33 @@
 <div class="p-5">
-    <div class="text-lg font-bold mb-4">Dane o subskrypcjach dla usługi streamingowej NETFLIX dla kraju
+    <div class="mb-4 text-lg font-bold">Subscription data for a streaming service NETFLIX for country
         {{selectedCountryName}}</div>
     <div *ngIf="isCountryData" class="flex-col gap-3 ml-3 text-sm">
 
 
 
-        <div> <span class="font-bold">Ilość seriali:</span> {{countryFeeSubscription!.numberOfTVShows}}</div>
+        <div> <span class="font-bold">Number of series:</span> {{countryFeeSubscription!.numberOfTVShows}}</div>
 
 
 
-        <div><span class="font-bold"> Ilość filmów:</span> {{countryFeeSubscription!.numberOfMovies}}</div>
+        <div><span class="font-bold">Number of films:</span> {{countryFeeSubscription!.numberOfMovies}}</div>
 
-        <div> <span class="font-bold">Ilość filmów i seriali:</span> {{countryFeeSubscription!.totalLibrarySize}}</div>
+        <div> <span class="font-bold">Number of films and series:</span> {{countryFeeSubscription!.totalLibrarySize}}
+        </div>
 
-        <div> <span class="font-bold">Koszt pakietu podstawowego:</span> {{countryFeeSubscription!.costPerMonthBasic}}$
+        <div> <span class="font-bold">Cost of the basic package:</span> {{countryFeeSubscription!.costPerMonthBasic}}$
         </div>
 
 
-        <div><span class="font-bold">Koszt pakietu standardowego:</span>
+        <div><span class="font-bold">Cost of the standard package:</span>
             {{countryFeeSubscription!.costPerMonthDtandard}}$</div>
 
 
-        <div><span class="font-bold">Koszt pakietu premium:</span> {{countryFeeSubscription!.costPerMonthPremium}}$
+        <div><span class="font-bold">Premium package cost:</span> {{countryFeeSubscription!.costPerMonthPremium}}$
         </div>
     </div>
 
 
     <div *ngIf="!isCountryData">
-        <div class="font-bold">Brak danych o subskrypcjach</div>
+        <div class="font-bold">No subscription data</div>
     </div>
 </div>

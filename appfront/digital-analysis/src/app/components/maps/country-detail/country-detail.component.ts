@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
@@ -11,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, catchError, of, takeUntil } from 'rxjs';
 import { NetflixSubscriptionFee } from 'src/app/models/inside/external/netflix/netflix-subscription-fee';
 import { SubscriptionFeeViewNetflix } from 'src/app/models/inside/external/netflix/subscription-fee-view-netflix';
-import { NetflixService } from 'src/app/service/netflix.service';
+import { NetflixService } from 'src/app/service/api/netflix.service';
 import { ActivatedRoute } from '@angular/router';
 import { LocalizationType } from '../../sidebar/toolbar/model/localization-type';
 
@@ -21,7 +22,7 @@ import { LocalizationType } from '../../sidebar/toolbar/model/localization-type'
   styleUrls: ['./country-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CountryDetailComponent implements OnChanges, OnInit {
+export class CountryDetailComponent implements OnChanges, OnInit, OnDestroy {
   @Input() selectedCountryName?: string;
 
   private readonly _destroy: Subject<void> = new Subject();
@@ -30,10 +31,21 @@ export class CountryDetailComponent implements OnChanges, OnInit {
   isCountryData: boolean = false;
   digitalAnalystType: LocalizationType = 'brak';
 
+  constructor(
+    private readonly _netflixService: NetflixService,
+    private readonly _snackBar: MatSnackBar,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _changeDetectorRef: ChangeDetectorRef
+  ) {}
+
   ngOnInit(): void {
     this.digitalAnalystType = this._activatedRoute.snapshot.queryParamMap.get(
       'type'
     )! as LocalizationType;
+  }
+
+  ngOnDestroy(): void {
+    this._destroy.complete();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -58,13 +70,6 @@ export class CountryDetailComponent implements OnChanges, OnInit {
     }
   }
 
-  constructor(
-    private readonly _netflixService: NetflixService,
-    private readonly _snackBar: MatSnackBar,
-    private readonly _activatedRoute: ActivatedRoute,
-    private readonly _changeDetectorRef: ChangeDetectorRef
-  ) {}
-
   getCountryDetailNetflixSubscriptionFee(): void {
     this._netflixService
       .getCountryNetflixSubscriptionFee(this.selectedCountryName!)
@@ -84,8 +89,8 @@ export class CountryDetailComponent implements OnChanges, OnInit {
           this.isCountryData = false;
 
           this._snackBar.open(
-            `Nie znaleziono danych o subskrypcjach dla kraju ${this.selectedCountryName}`,
-            'Zamknij'
+            `No subscription data found for the country ${this.selectedCountryName}`,
+            'Close'
           );
         }
         this._changeDetectorRef.markForCheck();

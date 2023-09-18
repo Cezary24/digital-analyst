@@ -31,7 +31,6 @@ export class ContentNavbarComponent {
   }
 
   onContentClick(content: PageContent): void {
-    console.log(content);
     const urlTree = this._router.createUrlTree([content.url], {
       queryParams: { type: content.type },
     });

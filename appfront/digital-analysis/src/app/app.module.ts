@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NetflixModule } from './components/netflix/netflix-home/netflix.module';
+import { TableModule } from './components/table-generic/table.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -18,6 +19,7 @@ import { NetflixModule } from './components/netflix/netflix-home/netflix.module'
     BrowserAnimationsModule,
     LeafletModule,
     HttpClientModule,
+    TableModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),

@@ -1,4 +1,5 @@
 export interface RevenueQuarter {
+  [key: string]: any;
   id: number;
   area: string;
   q1_2018: number;

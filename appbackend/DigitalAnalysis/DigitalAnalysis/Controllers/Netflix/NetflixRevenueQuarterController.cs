@@ -44,5 +44,7 @@ namespace DigitalAnalysis.Controllers.Netflix
             return Task.FromResult<IActionResult>(Ok(netflixRevenueQuarters));
         }
 
+    
+
     }
 }
